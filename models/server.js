@@ -22,7 +22,7 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.userPath, require('../routes/users'));
+        this.app.use(this.userPath, require('../routes/users.routes'));
     }
 
     listen() {
