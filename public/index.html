@@ -5,11 +5,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Google Sign-in</title>
 </head>
 
 <body>
-    <h1>Access to public</h1>
+    <h1>Google Sign-in</h1>
+    <hr>
+    <div id="g_id_onload" data-client_id="734252049479-30cbrpuscp134hqe7crigtt1ljku1mc6.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+    </div>
+    <br>
+    <button id="google_sign_out">Sign Out</button>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            //Google token: id_token
+
+            const body = {
+                id_token: response.credential
+            };
+
+            fetch('http://localhost:3000/api/auth/google', {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    localStorage.setItem('email', res.user.email);
+                })
+                .catch(console.warn);
+        }
+
+        const button = document.getElementById('google_sign_out');
+
+        button.onclick = () => {
+            console.log(google.accounts.id);
+
+            google.accounts.id.revoke(localStorage.getItem('email'), done => {
+                localStorage.clear();
+                location.reload();
+            })
+        };
+
+        // button.addEventListener("onclick", function() {
+        //     console.log(google.accounts.id);
+        // });
+    </script>
 </body>
 
 </html>
