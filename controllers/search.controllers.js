@@ -44,7 +44,8 @@ const searchProducts = async(term, res = response) => {
 
     if (istermMongoId) {
         const product = await Product.findById(term)
-            .populate('user', ['name', 'email']);
+            .populate('user', ['name', 'email'])
+            .populate('category', 'name');
 
         return res.status(200).json({
             result: (product) ? [product] : []
@@ -59,7 +60,9 @@ const searchProducts = async(term, res = response) => {
 
     const [totalProducts, products] = await Promise.all([
         Product.count(query),
-        Product.find(query).populate('user', ['name', 'email'])
+        Product.find(query)
+        .populate('user', ['name', 'email'])
+        .populate('category', 'name')
     ]);
 
     res.status(200).json({
