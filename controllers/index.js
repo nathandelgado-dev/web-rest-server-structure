@@ -27,6 +27,10 @@ const {
     deleteProduct
 } = require('./products.controllers');
 
+const {
+    search
+} = require('./search.controllers');
+
 module.exports = {
     usersGet,
     usersPost,
@@ -44,5 +48,6 @@ module.exports = {
     allProducts,
     getAProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    search
 }
