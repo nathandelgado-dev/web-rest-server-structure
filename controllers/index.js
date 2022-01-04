@@ -19,6 +19,14 @@ const {
     deletecategory
 } = require('./categories.controllers');
 
+const {
+    createProduct,
+    allProducts,
+    getAProduct,
+    updateProduct,
+    deleteProduct
+} = require('./products.controllers');
+
 module.exports = {
     usersGet,
     usersPost,
@@ -31,5 +39,10 @@ module.exports = {
     allCategories,
     getACategory,
     updateCategory,
-    deletecategory
+    deletecategory,
+    createProduct,
+    allProducts,
+    getAProduct,
+    updateProduct,
+    deleteProduct
 }
